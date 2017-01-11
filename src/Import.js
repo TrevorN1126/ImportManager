@@ -77,16 +77,20 @@
   * @param {object} Util_ instance
   * @constructor
   */
-  Import_.prototype.addTool = function(toolObj){
-    this.tools.push(toolObj);
+  Import_.prototype.addTool = function(name, description, fn){
+    var tool = new Util_('Tool', name, description, fn);
+    this.tools.push(tool);
+    return tool;
   };
   /**
   * add an import test to an import instance
   * @param {object} Util_ instance
   * @constructor
   */
-  Import_.prototype.addTest = function(testObj){
-    this.tests.push(testObj);
+  Import_.prototype.addTest = function(name, description, fn){
+    var test = new Util_('Test', name, description, fn);
+    this.tests.push(test);
+    return test;
   };
   /**
   * creates a new sheet from the objs template prop
@@ -159,12 +163,6 @@
     exports = {
       createImport: function(type, template){
         return new Import_(type, template);
-      },
-      createTest: function(name, description, fn){
-        return this.Tests.push(new Util_('Tests', name, description, fn));
-      },
-      createTool: function(name, description, fn){
-        return new Util_('Tools', name, description, fn);
       },
     };
   }

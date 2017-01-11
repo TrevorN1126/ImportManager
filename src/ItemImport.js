@@ -29,14 +29,23 @@
   ];
 
   var itemImport = importModule.createImport('Item Import', template);
-
-  var upcChecker = importModule.createTest(
+  
+  var upcChecker = itemImport.addTest(
     'UPC Checker',
     'Test to check that the length of items in the upc column are atleast 12 characters long',
     function(){
       return;
-    }.call(itemImport);
+    }
   );
+Logger.log(itemImport);
+  Logger.log(itemImport.tests);
+//  var upcChecker = importModule.createTest(
+//    'UPC Checker',
+//    'Test to check that the length of items in the upc column are atleast 12 characters long',
+//    function(){
+//      return;
+//    }.call(itemImport)
+//  );
 
   if (module) {
     exports = {

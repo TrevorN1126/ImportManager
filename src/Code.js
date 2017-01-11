@@ -22,7 +22,7 @@ function onOpen(e) {
 *****************************************************************/
 
 function test_IM(){
-  Logger.log(IM.MatrixImport.createSheet());  
+  Logger.log("test");  
   
 }
 
