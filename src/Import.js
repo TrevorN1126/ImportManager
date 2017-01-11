@@ -1,15 +1,11 @@
-
 (function (host, expose) {
+  var gapps = host;
   var module = { exports: {} };
   var exports = module.exports;
   /****** code begin *********/
-  var ss = SpreadsheetApp.getActiveSpreadsheet(),
-  sheet = ss.getActiveSheet();
-
-
   /**
   * @fileoverview
-  * IH namespace
+  * IM namespace
   */
 
   /**
@@ -18,15 +14,7 @@
   * @param {string}
   * @return {}
   */
-
-  if (module) {
-    exports = {
-      createImport: function(type, template){
-        return new Import_(type, template);
-      },
-    };
-  }
-
+  
 
   /**
   * @fileoverview Contains the class definitions & prototypes.
@@ -41,7 +29,7 @@
     this.type = type;
     this.template = template;
     this.tools = [];
-    this.test = [];
+    this.tests = [];
   };
   /**
   * gets the row data from the current sheet
@@ -49,7 +37,7 @@
   */
   Import_.prototype.getData = function(){
     //also sets the sheet format to strings
-    return sheet.getDataRange().setNumberFormat('@').getValues();
+    return SpreadsheetApp.getActiveSheet().getDataRange().setNumberFormat('@').getValues();
   };
   /**
   * gets the column data from the current sheet
@@ -59,12 +47,12 @@
     return _.zip.apply(null, this.getData());
   };
   /**
-  * sets the row data from the current sheet
+  * sets the row data from the current SpreadsheetApp.getActiveSheet()
   * @param {array} 2D array containing row values
   * @return {range} The data range
   */
   Import_.prototype.setData = function(data){
-    var sheetRange = sheet.getRange(1, 1, data.length, data[0].length);
+    var sheetRange = SpreadsheetApp.getActiveSheet().getRange(1, 1, data.length, data[0].length);
     return sheetRange.clear().setValues(data);
   };
   /**
@@ -100,6 +88,37 @@
   Import_.prototype.addTest = function(testObj){
     this.tests.push(testObj);
   };
+  /**
+  * creates a new sheet from the objs template prop
+  * If a sheet with the same name already exist, prompt the user 
+  * and rename the existing sheet and insert a new template sheet
+  * @{return} The data range 
+  */
+  Import_.prototype.createSheet = function(){
+    var sheetName = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(this.type);   
+    if( !sheetName ){
+      return SpreadsheetApp.getActiveSpreadsheet().insertSheet(this.type).appendRow(this.template); 
+    } else {
+      var message = "A sheet named "+ this.name +" already exist. Would you like to rename the current sheet and create a new import?";
+      var yesCB = function(){
+        sheetName.setName(this.type +"-"+ _.now());
+        return SpreadsheetApp.getActiveSpreadsheet().insertSheet(this.type).appendRow(this.template);
+      }
+      this.prompt(message, yesCB.bind(this), function(){return});
+    }
+  };
+  /**
+  * Adds dialog to sheet and prompts user for a response
+  * @{str} Messgae to display
+  * @{function} function to run if user prompts yes
+  * @{function} function to run if the user prompts no
+  * @ {return} the callback function called from the user prompt
+  */
+  Import_.prototype.prompt = function(message, yesCallback, noCallback){
+    var ui = SpreadsheetApp.getUi(),
+        response = ui.alert(message, ui.ButtonSet.YES_NO);
+    response == ui.Button.YES ? (function(){return yesCallback()})(): (function(){return noCallback()})();
+  }
 
   /**
   *
@@ -121,7 +140,14 @@
   Util_.prototype.run = function(arguments){
     return this.fn.apply(this, arguments);
   };
-
+  //Module methods
+  if (module) {
+    exports = {
+      createImport: function(type, template){
+        return new Import_(type, template);
+      },
+    };
+  }
   /****** code end *********/
   ;(
     function copy(src, target, obj) {
@@ -136,5 +162,5 @@
         obj[target] = src;
       }
     }
-  ).call(null, module.exports, expose, host);
+  ).call(null, exports, expose, host);
 }).call(this, this, "IM");

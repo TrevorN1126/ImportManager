@@ -31,7 +31,7 @@
 //      }
 //    }
 //  ).call(null, module.exports, expose, host);
-//}).call(this, IH, "ItemImport");
+//}).call(this, IM, "ItemImport");
 //
 //
 ///*****************************************************************
@@ -39,8 +39,8 @@
 //*****************************************************************/
 //
 //function test_ItemImport(){
-//  Logger.log(IH);
-//  Logger.log(IH.ItemImport);
+//  Logger.log(IM);
+//  Logger.log(IM.ItemImport);
 //  
 //  
 //  
