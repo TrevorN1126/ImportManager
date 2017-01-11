@@ -1,7 +1,7 @@
 (function (host, expose) {
-  var gapps = host;
-  var module = { exports: {} };
-  var exports = module.exports;
+  var gapps = host,
+  module = { exports: {} },
+  exports = module.exports;
   /****** code begin *********/
   /**
   * @fileoverview
@@ -116,7 +116,7 @@
   */
   Import_.prototype.prompt = function(message, yesCallback, noCallback){
     var ui = SpreadsheetApp.getUi(),
-        response = ui.alert(message, ui.ButtonSet.YES_NO);
+    response = ui.alert(message, ui.ButtonSet.YES_NO);
     response == ui.Button.YES ? (function(){return yesCallback()})(): (function(){return noCallback()})();
   }
 

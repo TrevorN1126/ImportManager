@@ -1,5 +1,5 @@
 (function (host, expose) {
-  var import = host;
+  var importModule = host;
   var module = { exports: {} };
   var exports = module.exports;
   /****** code begin *********/
@@ -28,9 +28,9 @@
     "Web Long Description", "Weight", "Length", "Width", "Height"
   ];
 
-  var itemImport = import.createImport('Item Import', template);
+  var itemImport = importModule.createImport('Item Import', template);
 
-  var upcChecker = import.createTest(
+  var upcChecker = importModule.createTest(
     'UPC Checker',
     'Test to check that the length of items in the upc column are atleast 12 characters long',
     function(){

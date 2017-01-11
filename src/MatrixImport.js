@@ -1,5 +1,5 @@
 (function (host, expose) {
-  var import = host;
+  var importModule = host;
   var module = { exports: {} };
   var exports = module.exports;
   /****** code begin *********/
@@ -20,7 +20,7 @@
              "Web Short Description", "Web Long Description", "Weight", "Length", "Width", "Height"
   ];
 
-  var matrixImport = import.createImport('Matrix Import', template);
+  var matrixImport = importModule.createImport('Matrix Import', template);
 
   if (module) {
     exports = {

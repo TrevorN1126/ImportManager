@@ -1,5 +1,5 @@
 (function (host, expose) {
-  var import = host;
+  var importModule = host;
   var module = { exports: {} };
   var exports = module.exports;
   /****** code begin *********/
@@ -18,7 +18,7 @@
     "Discount Category", "Customer Type", "Account Balance", "Credit Limit", "Tags"
   ];
 
-  var customerImport = import.createImport('Customer Import', template);
+  var customerImport = importModule.createImport('Customer Import', template);
 
   if (module) {
     exports = {
