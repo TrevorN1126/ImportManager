@@ -14,7 +14,7 @@
   * @param {string}
   * @return {}
   */
-  
+
 
   /**
   * @fileoverview Contains the class definitions & prototypes.
@@ -90,14 +90,14 @@
   };
   /**
   * creates a new sheet from the objs template prop
-  * If a sheet with the same name already exist, prompt the user 
+  * If a sheet with the same name already exist, prompt the user
   * and rename the existing sheet and insert a new template sheet
-  * @{return} The data range 
+  * @{return} The data range
   */
   Import_.prototype.createSheet = function(){
-    var sheetName = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(this.type);   
+    var sheetName = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(this.type);
     if( !sheetName ){
-      return SpreadsheetApp.getActiveSpreadsheet().insertSheet(this.type).appendRow(this.template); 
+      return SpreadsheetApp.getActiveSpreadsheet().insertSheet(this.type).appendRow(this.template);
     } else {
       var message = "A sheet named "+ this.name +" already exist. Would you like to rename the current sheet and create a new import?";
       var yesCB = function(){
@@ -124,10 +124,12 @@
   *
   * @param {string}
   * @param {string}
+  * @param {string}
   * @param {function}
   * @constructor
   */
-  function Util_(name, description, fn){
+  function Util_(type, name, description, fn){
+    this.type = type;
     this.name = name;
     this.description = description;
     this.fn = fn;
@@ -140,11 +142,29 @@
   Util_.prototype.run = function(arguments){
     return this.fn.apply(this, arguments);
   };
+  /**
+  * Method to describe the util
+  * returns the type, name, description in an object
+  * @return {function}
+  */
+  Util_.prototype.describe = function(){
+    return {
+      type: this.type,
+      name: this.name,
+      description: this.description
+    };
+  };
   //Module methods
   if (module) {
     exports = {
       createImport: function(type, template){
         return new Import_(type, template);
+      },
+      createTest: function(name, description, fn){
+        return this.Tests.push(new Util_('Tests', name, description, fn));
+      },
+      createTool: function(name, description, fn){
+        return new Util_('Tools', name, description, fn);
       },
     };
   }
