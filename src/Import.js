@@ -74,7 +74,7 @@
   };
   /**
   * add an import tool to an import instance
-  * @param {object} Util_ instance
+  * @param {}
   * @constructor
   */
   Import_.prototype.addTool = function(name, description, fn){
@@ -83,12 +83,26 @@
     return tool;
   };
   /**
+  * 
+  * @param {}
+  * @constructor
+  **/
+  Import_.prototype.getUtil = function(type, utilName){
+    Logger.log(this[type].length);
+    for (var i = 0, l = this[type].length; i<l; i++){
+      if (this[type][i].name === utilName){
+        return this[type][i];
+      }
+    }
+    return Logger.log('util not found');
+  };
+  /**
   * add an import test to an import instance
   * @param {object} Util_ instance
   * @constructor
   */
   Import_.prototype.addTest = function(name, description, fn){
-    var test = new Util_('Test', name, description, fn);
+    var test = new Util_( 'Test', name, description, fn);
     this.tests.push(test);
     return test;
   };
@@ -144,7 +158,12 @@
   * @return {function}
   */
   Util_.prototype.run = function(arguments){
-    return this.fn.apply(this, arguments);
+//    Logger.log("run() begin");
+//    Logger.log(this);
+//    Logger.log(arguments);
+//    Logger.log(this.fn);
+//    Logger.log("run() end)");
+    return this.fn.apply(this, [arguments]);
   };
   /**
   * Method to describe the util

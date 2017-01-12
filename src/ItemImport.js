@@ -6,11 +6,10 @@
   /**
   * @fileoverview
   * IM namespace
-  */
-
+  **/
   /**
-  *
-  */
+  * Item Import Model Template
+  **/
   var template = [
     "System ID", "UPC", "EAN", "Custom SKU", "Manufacturer SKU",
     "Description", "MSRP", "Online", "Default Cost", "Price",
@@ -27,26 +26,31 @@
     "Sell on WebStore (Boolean)", "Web Short Description",
     "Web Long Description", "Weight", "Length", "Width", "Height"
   ];
-
+  
+  /****** Item Import Instance *********/
   var itemImport = importModule.createImport('Item Import', template);
   
+  /****** Item Import Tests *********/
   var upcChecker = itemImport.addTest(
     'UPC Checker',
     'Test to check that the length of items in the upc column are atleast 12 characters long',
-    function(){
-      return;
+    function(upcColumn){
+//      Logger.log("upcCheck This")
+//      Logger.log(this);
+      return upcColumn.reduce(function(accumulator, currentValue, currentIndex, array) {
+        return accumulator + currentValue;
+      });
     }
   );
-Logger.log(itemImport);
-  Logger.log(itemImport.tests);
-//  var upcChecker = importModule.createTest(
-//    'UPC Checker',
-//    'Test to check that the length of items in the upc column are atleast 12 characters long',
-//    function(){
-//      return;
-//    }.call(itemImport)
-//  );
+  
+  Logger.log("Test[0].run(): %s",itemImport.tests[0].run([2,2]));
+  Logger.log("Test[0].name: %s", itemImport.tests[0].name);
+  Logger.log("test[0].describe: %s", itemImport.tests[0].describe());
+  Logger.log(itemImport.getUtil('tests','UPC Checker'));
+  
+  /****** Item Import Tools *********/
 
+  /****** Module Methods *********/
   if (module) {
     exports = {
       createSheet: function(){
