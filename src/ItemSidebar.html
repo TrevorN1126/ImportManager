@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">  
+  <?!=include('Stylesheet'); ?>
+  
+</head>
+<body>
+  <div class="sidebar branding-below">
+    
+    <div class="block form-group">
+      <button id="createImport" class="create importButton">Create</button>
+      <h2>Ceate a new item import</h2>
+      <p> Creating a new import will insert a sheet with the name "Items Import" with the correct template. If there is already a sheet named "items-Import" you will be ask if you want to rename the existing sheet.
+      </p>
+    </div>  
+    
+    <div class="block">
+      <button id="reviewImport" class="action importButton">Review</button>
+      <h2>Review This Import</h2>
+      <p>Reviewing your import will remove all unsupported character like accents, &*%#(, and then run your data through some tests to check for common errors. After the tests are completed a report will be automatically generated for you. 
+      </p>
+    </div>
+        
+    <div class="block">
+      <h2>Import Tools</h2>
+      <p>These are some tools that can help speed along your import.
+      </p>
+      <select id="importToolSelector">
+        <option value="concatDescription" selected="selected">Generate Descriptions</option>
+        <option value="splitImport"> Split Import</option>
+      </select>
+      <div id="concatDescription" class="importTool">
+        <h3>Generate Descriptions</h3>
+        <button id="generateDescriptions" class="action importButton">Generate</button>
+        <p>Use this tools to automatically generate item descriptions base on matrix group name, size and, color.
+        </p>
+      </div>
+      <div id="splitImport" class="importTool">
+        <h3>Split Import</h3>
+        <button class="action importButton">Split</button>
+        <p>Use this tool to split imports over 500 rows into multiple sheets for seperate importing.
+        </p>
+      </div>
+    </div>
+    
+    <input type="button" value="Close" onclick="google.script.host.close()" />   
+  </div>
+  
+  <div class="sidebar bottom">
+    <span class="gray">
+      Import Helper by KbWeb.Tech</span>
+  </div>
+  <script src="//code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script>
+    $(function() {
+      $( "#importToolSelector" ).change(function () {
+        var str = "";
+        $('.importTool').hide();
+        $( "select option:selected" ).each(function() {
+          $("#" + $( this ).val()).show();    
+        });
+      })
+      .change();
+      
+      //button listerners
+      $('#createImport').click(function(event){ 
+        google.script.run.withSuccessHandler(update).createImport_sidebar("ItemImport");
+      });
+      $('#reviewImport').click(function(event){ 
+        google.script.run.withSuccessHandler(update).initReviewBttn();
+      });
+      $('#concatDescription button').click(function(event){ 
+        google.script.run.withSuccessHandler(update).generateDescriptions_sidebar();
+      });
+
+      function update(){
+        alert("update");
+      }
+    });
+  </script>
+</body>
+</html>

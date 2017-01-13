@@ -83,20 +83,6 @@
     return tool;
   };
   /**
-  * 
-  * @param {}
-  * @constructor
-  **/
-  Import_.prototype.getUtil = function(type, utilName){
-    Logger.log(this[type].length);
-    for (var i = 0, l = this[type].length; i<l; i++){
-      if (this[type][i].name === utilName){
-        return this[type][i];
-      }
-    }
-    return Logger.log('util not found');
-  };
-  /**
   * add an import test to an import instance
   * @param {object} Util_ instance
   * @constructor
@@ -105,6 +91,20 @@
     var test = new Util_( 'Test', name, description, fn);
     this.tests.push(test);
     return test;
+  };
+  /**
+  * 
+  * @param {}
+  * @constructor
+  **/
+  Import_.prototype.getUtil = function(type, utilName){
+//    Logger.log(this[type].length);
+    for (var i = 0, l = this[type].length; i<l; i++){
+      if (this[type][i].name === utilName){
+        return this[type][i];
+      }
+    }
+    return Logger.log('util not found');
   };
   /**
   * creates a new sheet from the objs template prop

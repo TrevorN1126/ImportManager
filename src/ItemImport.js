@@ -33,20 +33,31 @@
   /****** Item Import Tests *********/
   var upcChecker = itemImport.addTest(
     'UPC Checker',
-    'Test to check that the length of items in the upc column are atleast 12 characters long',
-    function(upcColumn){
-//      Logger.log("upcCheck This")
-//      Logger.log(this);
-      return upcColumn.reduce(function(accumulator, currentValue, currentIndex, array) {
-        return accumulator + currentValue;
-      });
+    'Test to check that the length of items in the upc column are atleast 12 characters long.' +  "\n" +
+    'The function takes an array of upc values and returns a 2d array of bad upcs.'+  "\n" +
+    'the data passed to the function should be strings.',
+    function(data){
+      var upcColumn = data,
+      //add header row to returned list
+      badUpcList = [['UPCs','Row Index']];
+      for (var i = 1, x = upcColumn.length; i<x; i++){
+        //if length is < 12 push the [upc value and row index] to returned list
+        if(upcColumn[i].length < 12){
+          var badbUpc = [
+            upcColumn[i],
+            i+1
+          ];
+          badUpcList.push(badbUpc);
+        }
+      }
+      return badUpcList;  
     }
   );
   
-  Logger.log("Test[0].run(): %s",itemImport.tests[0].run([2,2]));
-  Logger.log("Test[0].name: %s", itemImport.tests[0].name);
-  Logger.log("test[0].describe: %s", itemImport.tests[0].describe());
-  Logger.log(itemImport.getUtil('tests','UPC Checker'));
+  Logger.log("Test[0].run(): %s",upcChecker.run(['upc','2565656','43543434344443','6767762']));
+//  Logger.log("Test[0].name: %s", itemImport.tests[0].name);
+  Logger.log("UPC Checker: %s", upcChecker.describe());
+//  Logger.log(itemImport.getUtil('tests','UPC Checker').describe());
   
   /****** Item Import Tools *********/
 
