@@ -26,10 +26,10 @@
     "Sell on WebStore (Boolean)", "Web Short Description",
     "Web Long Description", "Weight", "Length", "Width", "Height"
   ];
-  
+
   /****** Item Import Instance *********/
   var itemImport = importModule.createImport('Item Import', template);
-  
+
   /****** Item Import Tests *********/
   var upcChecker = itemImport.addTest(
     'UPC Checker',
@@ -50,15 +50,15 @@
           badUpcList.push(badbUpc);
         }
       }
-      return badUpcList;  
+      return badUpcList;
     }
   );
-  
+
   Logger.log("Test[0].run(): %s",upcChecker.run(['upc','2565656','43543434344443','6767762']));
 //  Logger.log("Test[0].name: %s", itemImport.tests[0].name);
   Logger.log("UPC Checker: %s", upcChecker.describe());
 //  Logger.log(itemImport.getUtil('tests','UPC Checker').describe());
-  
+
   /****** Item Import Tools *********/
 
   /****** Module Methods *********/
@@ -67,6 +67,16 @@
       createSheet: function(){
         return itemImport.createSheet();
       },
+      /**
+      * @param {string} name of the util
+      * @param {array} of agruments passed to the util run fn
+      **/
+      runTool: function(utilName, arguments){
+        return itemImport.getUtil('tools',utilName).run(arguments);
+      },
+      initTests: function(){
+        
+      }
     };
   }
 
