@@ -76,8 +76,10 @@
         return itemImport.getUtil('tools',utilName).run(arguments);
       },
       initTests: function(){
-
-      }
+        var data = itemImport.getData();
+        //itemImport.getUtil('tools','Sanitize Data').run(data);
+        itemImport.getUtil('tests','UPC Checker').run(itemImport.getColumn('UPC',data));
+      },
     };
   }
 

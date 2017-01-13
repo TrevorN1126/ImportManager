@@ -49,10 +49,11 @@
   /**
   * gets the column data from the current sheet
   * @param {string} name of the column to return
+  * @param {array} optional 2d array of column vaules
   * @return {array} 2D array containing the column values
   **/
-  Import_.prototype.getColumn = function(columnHeader){
-    var data = this.getColumns();
+  Import_.prototype.getColumn = function(columnHeader, data){
+    var data = data || this.getColumns();
     for (var i = 0, x = data.length; i<x;i++) {
       if (data[i][0] === columnHeader){
         return data[i];
