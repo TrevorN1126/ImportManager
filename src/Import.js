@@ -34,7 +34,7 @@
   /**
   * gets the row data from the current sheet
   * @return {array} 2D array containing the row values
-  */
+  **/
   Import_.prototype.getData = function(){
     //also sets the sheet format to strings
     return SpreadsheetApp.getActiveSheet().getDataRange().setNumberFormat('@').getValues();
@@ -42,9 +42,22 @@
   /**
   * gets the column data from the current sheet
   * @return {array} 2D array containing the column values
-  */
+  **/
   Import_.prototype.getColumns = function(){
     return _.zip.apply(null, this.getData());
+  };
+  /**
+  * gets the column data from the current sheet
+  * @param {string} name of the column to return
+  * @return {array} 2D array containing the column values
+  **/
+  Import_.prototype.getColumn = function(columnHeader){
+    var data = this.getColumns();
+    for (var i = 0, x = data.length; i<x;i++) {
+      if (data[i][0] === columnHeader){
+        return data[i];
+      }
+    }
   };
   /**
   * sets the row data from the current SpreadsheetApp.getActiveSheet()
@@ -93,7 +106,7 @@
     return test;
   };
   /**
-  * 
+  *
   * @param {}
   * @constructor
   **/

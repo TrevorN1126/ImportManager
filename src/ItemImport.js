@@ -37,7 +37,8 @@
     'The function takes an array of upc values and returns a 2d array of bad upcs.'+  "\n" +
     'the data passed to the function should be strings.',
     function(data){
-      var upcColumn = data,
+      Logger.log(this);
+      var upcColumn = data || itemImport.getColumns()[1],
       //add header row to returned list
       badUpcList = [['UPCs','Row Index']];
       for (var i = 1, x = upcColumn.length; i<x; i++){
@@ -75,7 +76,7 @@
         return itemImport.getUtil('tools',utilName).run(arguments);
       },
       initTests: function(){
-        
+
       }
     };
   }
