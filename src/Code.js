@@ -7,14 +7,30 @@ function onOpen(e) {
   // Or DocumentApp or FormApp.
   ui.createMenu('Custom Menu')
       .addItem('First item', 'test_IM')
+      .addItem('Item Import', 'ItemDialog')
       .addSeparator()
       .addSubMenu(ui.createMenu('Sub-menu')
           .addItem('Second item', 'menuItem2'))
       .addToUi();
 }
 
+/**
+ * Returns the contents of an HTML file.
+ * @param {string} file The name of the file to retrieve.
+ * @return {string} The content of the file.
+ */
+function include(filename) {
+  return HtmlService.createHtmlOutputFromFile(filename)
+      .getContent();
+}
 
-
+function ItemSidebar() {
+  var html = HtmlService.createHtmlOutputFromFile('ItemSidebar')
+      .setTitle('Item Import')
+      .setWidth(300);
+  SpreadsheetApp.getUi() 
+      .showSidebar(html);
+}
 
 
 /*****************************************************************

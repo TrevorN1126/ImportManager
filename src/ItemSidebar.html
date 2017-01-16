@@ -2,8 +2,26 @@
 <html>
 <head>
   <base target="_top">
-  <?!=include('Stylesheet'); ?>
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+<style>
+.branding-below {
+  bottom: 56px;
+  top: 0;
+}
 
+.block{
+  padding: 3px 10px;
+  background-color: #d3d3d3;
+}
+
+.importButton {
+  float: right;
+  margin-top: 10px;
+}
+.info {
+  display:none;
+}
+  </style>
 </head>
 <body>
   <div class="sidebar branding-below">
@@ -12,10 +30,10 @@
       <button id="createImport" class="create importButton">Create</button>
       <h2>Ceate a new item import</h2>
       <div class="infoDiv">
-        <a href="#" class="show_hide" Class="plus">+</a>
+        <div  class="show_hide">+ more info</div>
         <div class="info">
-          <p>Creating a new import will insert a sheet with the name "Items Import" with the correct template. If there is already a sheet named "items-Import" you will be ask if you want to rename the existing sheet.
-          </p>
+        <p>Creating a new import will insert a sheet with the name "Items Import" with the correct template. If there is already a sheet named "items-Import" you will be ask if you want to rename the existing sheet.       
+        </p>
         </div>
       </div>
     </div>
@@ -24,7 +42,7 @@
       <button id="reviewImport" class="action importButton">Review</button>
       <h2>Review This Import</h2>
       <div class="infoDiv">
-        <a href="#" class="show_hide" Class="plus">+</a>
+        <div  class="show_hide">+ more info</div>
         <div class="info">
           <p>Reviewing your import will remove all unsupported character like accents, &*%#(, and then run your data through some tests to check for common errors. After the tests are completed a report will be automatically generated for you.
           </p>
@@ -53,8 +71,9 @@
         </p>
       </div>
     </div>
-
-    <input type="button" value="Close" onclick="google.script.host.close()" />
+    <div class="block">
+      <input type="button" value="Close" onclick="google.script.host.close()" />
+    </div>
   </div>
 
   <div class="sidebar bottom">
@@ -75,16 +94,14 @@
       .change();
 
       //show hide addiontal info
-      $(".info").hide();
-      $('.show_hide').toggle(
-        function(){
-          $(this).text("-");
-          $(this).siblings('.info').slideDown();
-        },function(){
-          $(this).text("+");
-          $(this).siblings('.info').slideUp();
-      });
+//      $(".info").hide();
 
+  $('.show_hide').on('click', function() {
+	$parent_box = $(this).closest('.infoDiv');
+	$parent_box.siblings().find('.info').hide();
+	$parent_box.find('.info').toggle();
+  });
+      
       //button listerners
       $('#createImport').click(function(event){
         google.script.run.withSuccessHandler(update).createImport_sidebar("ItemImport");

@@ -57,7 +57,7 @@
 
   Logger.log("Test[0].run(): %s",upcChecker.run(['upc','2565656','43543434344443','6767762']));
 //  Logger.log("Test[0].name: %s", itemImport.tests[0].name);
-  Logger.log("UPC Checker: %s", upcChecker.describe());
+//  Logger.log("UPC Checker: %s", upcChecker.describe());
 //  Logger.log(itemImport.getUtil('tests','UPC Checker').describe());
 
   /****** Item Import Tools *********/
